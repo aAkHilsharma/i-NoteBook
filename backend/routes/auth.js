@@ -12,16 +12,21 @@ router.post('/createuser',[
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    let user = await User.findOne({email: req.body.email});
-    if(user){
-        return res.status(400).json({error: "Sorry a user with this email already exists"});
+    try {
+        let user = await User.findOne({email: req.body.email});
+        if(user){
+            return res.status(400).json({error: "Sorry a user with this email already exists"});
+        }
+        user = await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,  
+        })
+        res.json({"success": "Successful"});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Some error occured try again!")
     }
-    user = await User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,  
-    })
-    res.json({"success": "Successful"});
 })
 
 module.exports = router; 
