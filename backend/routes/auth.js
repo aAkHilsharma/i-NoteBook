@@ -18,8 +18,8 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // Check if email is unique if not send error 
     try {
+      // Check if email is unique if not send error 
       let user = await User.findOne({ email: req.body.email });
       if (user) {
         return res
