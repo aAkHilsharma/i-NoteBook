@@ -4,7 +4,7 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-// create a user using: POST "/api/auth/createuser"
+//Route 1:  create a user using: POST "/api/auth/createuser"
 const JWT_SECRET = "abcdef";
 router.post(
   "/createuser",
@@ -53,7 +53,7 @@ router.post(
 );
 
 
-// Authenticate a user using : POST "/api/auth/login"
+//Route 2: Authenticate a user using : POST "/api/auth/login" No login required
 router.post(
   "/login",
   [
