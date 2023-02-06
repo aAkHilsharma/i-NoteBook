@@ -52,4 +52,42 @@ router.post(
   }
 );
 
+
+// Authenticate a user using : POST "/api/auth/login"
+router.post(
+  "/login",
+  [
+    body("email", "Enter a valid email").isEmail(),
+    body("password", "Password cannot be blank").exists({
+      min: 5,
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const {email, password} = req.body;
+    try {
+      let user = await User.findOne({email});
+      if(!user){
+        return res.status(400).json({error : "Please enter with correct login credentials"});
+      }
+      const compare = await bcrypt.compare(password, user.password);
+      if(!compare){
+        return res.status(400).json({error : "Please enter with correct login credentials"});
+      }
+      const data = {
+        user:{
+          id: user.id
+        }
+      }
+      const authToken = jwt.sign(data, JWT_SECRET);
+      res.json({authToken});
+    } catch (error) {
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
 module.exports = router;
