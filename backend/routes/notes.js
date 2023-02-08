@@ -15,26 +15,26 @@ router.post(
   fetchuser,
   [
     body("title", "Enter a valid title").isLength({ min: 3 }),
-    body("description", "description must be atleast 5 characters").isLength({
-      min: 5,
-    }),
+    body("description", "description must be atleast 5 characters").isLength({min: 5}),
   ],
   async (req, res) => {
     try {
+      const {title, description, tag} = req.body;  
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(402).send({ error: "Internal server error" });
+        return res.status(401).send({ errors: errors.array() });
       }
       const note = new Notes({
         title,
         description,
         tag,
+        user: req.user.id
       });
       const savedNote = await note.save();
       res.json(savedNote);
     } catch (error) {
         console.log(error);
-        return res.status(402).send({ error: "Internal server error" });
+        return res.status(403).send({ error: "Internal server error" });
     }
   }
 );
