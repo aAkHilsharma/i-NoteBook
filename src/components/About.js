@@ -4,6 +4,7 @@ const About = ()=>{
     const context = useContext(noteContext);
     useEffect(()=>{
         context.update();
+        // eslint-disable-next-line
     }, [])
     return(
         <div>
