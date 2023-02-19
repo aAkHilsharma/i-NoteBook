@@ -38,7 +38,7 @@ const NoteState = (props) => {
       "date": "2023-02-10T08:06:48.093Z",
       "__v": 0,
     }
-    setNotes(notes.push(note));
+    setNotes(notes.concat(note));
   }
   // delete note
   const deleteNote = ()=>{
