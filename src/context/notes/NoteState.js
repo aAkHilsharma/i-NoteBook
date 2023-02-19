@@ -31,9 +31,9 @@ const NoteState = (props) => {
     const note = {
       "_id": "63e5fb18d8ab74ca90e1e7ff1",
       "user": "63e11cefe2dc450c4e6ec357",
-      "title": "Daily Routine ADDED",
+      "title": title,
       "description":
-        "Do these daily: gym, yoga, meditation, web development, data structures, rest",
+        description,
       "tag": "Development",
       "date": "2023-02-10T08:06:48.093Z",
       "__v": 0,
