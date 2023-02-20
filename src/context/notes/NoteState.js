@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import noteContext from "./NoteContext";
 
 const NoteState = (props) => {
+  const host = "http://localhost:5000";
   const notesInitial = [
     {
       "_id": "63es500b9cedd205178169ea6",
@@ -26,8 +27,19 @@ const NoteState = (props) => {
   ];
   const [notes, setNotes] = useState(notesInitial);
   // add note
-  const addNote = (title, description, tag)=>{
+  const addNote = async(title, description, tag)=>{
     //TODO api call
+    const response = await fetch(`${host}/api/notes/addnewnote`, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlMTFjZWZlMmRjNDUwYzRlNmVjMzU3In0sImlhdCI6MTY3NTc1Mjk5NH0.2i92gHsvunrS73wf-WOkZSZqgT3awXC85laLUD3wVMk"
+      },
+      body: JSON.stringify({title, description, tag})
+    });
+    const json =  response.json();
+
+    //logic 
     const note = {
       "_id": "63e5fb18d8ab74ca90e1e7ff1",
       "user": "63e11cefe2dc450c4e6ec357",
@@ -47,8 +59,17 @@ const NoteState = (props) => {
     setNotes(newNotes);
   }
   // edit note
-  const editNote = (id, title, description, tag)=>{
+  const editNote = async(id, title, description, tag)=>{
     //TODO API call
+    const response = await fetch(`${host}/api/notes/udatenote/${id}`, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlMTFjZWZlMmRjNDUwYzRlNmVjMzU3In0sImlhdCI6MTY3NTc1Mjk5NH0.2i92gHsvunrS73wf-WOkZSZqgT3awXC85laLUD3wVMk"
+      },
+      body: JSON.stringify({title, description, tag})
+    });
+    const json =  response.json(); 
 
     //Logic to edit in client
     for(let i=0; i<notes.length; i++){
