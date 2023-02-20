@@ -1,31 +1,29 @@
+import { waitFor } from "@testing-library/react";
 import React, { useState } from "react";
 import noteContext from "./NoteContext";
 
 const NoteState = (props) => {
   const host = "http://localhost:5000";
-  const notesInitial = [
-    {
-      "_id": "63es500b9cedd205178169ea6",
-      "user": "63e11cefe2dc450c4e6ec357",
-      "title": "Daily Routine",
-      "description":
-        "Do these daily: gym, yoga, meditation, web development, data structures, rest",
-      "tag": "Development",
-      "date": "2023-02-09T14:18:33.886Z",
-      "__v": 0,
-    },
-    {
-      "_id": "63e50187dc7e6d3e6aca902a8",
-      "user": "63e11cefe2dc450c4e6ec357",
-      "title": "Daily Routine",
-      "description":
-        "Do these daily: gym, yoga, meditation, web development, data structures, rest",
-      "tag": "Development",
-      "date": "2023-02-09T14:21:59.481Z",
-     "__v": 0,
-    }
-  ];
+  const notesInitial = [];
+
+
   const [notes, setNotes] = useState(notesInitial);
+  
+  //fetch all notes
+  const getNotes = async(title, description, tag)=>{
+    //TODO api call
+    const response = await fetch(`${host}api/notes/fetchallnotes`, {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlMTFjZWZlMmRjNDUwYzRlNmVjMzU3In0sImlhdCI6MTY3NTc1Mjk5NH0.2i92gHsvunrS73wf-WOkZSZqgT3awXC85laLUD3wVMk"
+      },
+    });
+    const json = await response.json();
+    console.log(json)
+    setNotes(json);
+  } 
+  
   // add note
   const addNote = async(title, description, tag)=>{
     //TODO api call
@@ -62,7 +60,7 @@ const NoteState = (props) => {
   const editNote = async(id, title, description, tag)=>{
     //TODO API call
     const response = await fetch(`${host}/api/notes/udatenote/${id}`, {
-      method: 'POST', 
+      method: 'PUT', 
       headers: {
         'Content-Type': 'application/json',
         'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlMTFjZWZlMmRjNDUwYzRlNmVjMzU3In0sImlhdCI6MTY3NTc1Mjk5NH0.2i92gHsvunrS73wf-WOkZSZqgT3awXC85laLUD3wVMk"
@@ -82,7 +80,7 @@ const NoteState = (props) => {
     }
   } 
   return (
-    <noteContext.Provider value={{notes,setNotes, addNote, deleteNote, editNote}}>
+    <noteContext.Provider value={{notes,setNotes, addNote, deleteNote, editNote, getNotes}}>
       {props.children}
     </noteContext.Provider>
   );
