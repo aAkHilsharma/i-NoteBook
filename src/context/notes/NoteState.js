@@ -47,8 +47,18 @@ const NoteState = (props) => {
     setNotes(newNotes);
   }
   // edit note
-  const editNote = ()=>{
+  const editNote = (id, title, description, tag)=>{
+    //TODO API call
 
+    //Logic to edit in client
+    for(let i=0; i<notes.length; i++){
+      const element = notes[i];
+      if(element._id === id){
+        element.title = title;
+        element.description = description;
+        element.tag = tag;
+      }
+    }
   } 
   return (
     <noteContext.Provider value={{notes,setNotes, addNote, deleteNote, editNote}}>
