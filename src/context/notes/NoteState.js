@@ -34,7 +34,7 @@ const NoteState = (props) => {
       "title": title,
       "description":
         description,
-      "tag": "Development",
+      "tag": tag,
       "date": "2023-02-10T08:06:48.093Z",
       "__v": 0,
     }
