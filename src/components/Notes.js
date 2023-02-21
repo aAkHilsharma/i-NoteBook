@@ -9,11 +9,12 @@ const Notes = () => {
     useEffect(() => {
         getNotes();
     }, []) 
-    const updateNote = ()=>{
+    const updateNote = (currentNote)=>{
         ref.current.click();
+        setNote({etitle : currentNote.title, edescription : currentNote.description, etag: currentNote.tag});
     }
     const ref = useRef(null)
-    const [note, setNote] = useState({title:"", description:"", tag:"default"});
+    const [note, setNote] = useState({etitle:"", edescription:"", etag:""});
     const handleClick = (e)=>{
         e.preventDefault();
     }
@@ -25,7 +26,7 @@ const Notes = () => {
             <button ref={ref} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
             </button>
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                 <div className="modal-header">
@@ -44,6 +45,7 @@ const Notes = () => {
                         id="etitle"
                         name="etitle"
                         aria-describedby="emailHelp"
+                        value={note.etitle}
                         onChange={onchange}
                     />
                     </div>
@@ -57,6 +59,7 @@ const Notes = () => {
                         id="edescription"
                         name="edescription"
                         onChange={onchange}
+                        value={note.edescription}
                     />
                     </div>
                     <div className="mb-3">
@@ -69,6 +72,7 @@ const Notes = () => {
                         id="etag"
                         name="etag"
                         onChange={onchange}
+                        value={note.etag}
                     />
                     </div>
                 </form>
