@@ -13,10 +13,12 @@ const Notes = () => {
         ref.current.click();
         setNote({etitle : currentNote.title, edescription : currentNote.description, etag: currentNote.tag});
     }
-    const ref = useRef(null)
+    const ref = useRef(null);
+    const refClose = useRef(null);
     const [note, setNote] = useState({etitle:"", edescription:"", etag:""});
+
     const handleClick = (e)=>{
-        e.preventDefault();
+        refClose.current.click();
     }
     const onchange = (e)=>{
         setNote({...note, [e.target.name]: e.target.value});
@@ -78,8 +80,8 @@ const Notes = () => {
                 </form>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Update Note</button>
+                    <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-primary" onClick={handleClick}>Update Note</button>
                 </div>
                 </div>
             </div>
