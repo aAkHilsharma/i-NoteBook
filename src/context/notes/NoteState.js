@@ -77,15 +77,18 @@ const NoteState = (props) => {
     });
     const json =  response.json(); 
     console.log(json);
+    let newNote = JSON.parse(JSON.stringify(notes));
     //Logic to edit in client
-    for(let i=0; i<notes.length; i++){
-      const element = notes[i];
+    for(let i=0; i<newNote.length; i++){
+      const element = newNote[i];
       if(element._id === id){
-        notes[i].title = title;
-        notes[i].description = description;
-        notes[i].tag = tag;
+        newNote[i].title = title;
+        newNote[i].description = description;
+        newNote[i].tag = tag;
       }
+      break;
     }
+    setNotes(newNote);
   } 
   return (
     <noteContext.Provider value={{notes,setNotes, addNote, deleteNote, editNote, getNotes}}>
