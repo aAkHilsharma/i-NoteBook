@@ -75,7 +75,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({title, description, tag})
     });
-    const json =  response.json(); 
+    const json = await response.json(); 
     console.log(json);
     let newNote = JSON.parse(JSON.stringify(notes));
     //Logic to edit in client
@@ -85,8 +85,8 @@ const NoteState = (props) => {
         newNote[i].title = title;
         newNote[i].description = description;
         newNote[i].tag = tag;
+        break;
       }
-      break;
     }
     setNotes(newNote);
   } 
