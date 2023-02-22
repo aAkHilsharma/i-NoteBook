@@ -36,7 +36,7 @@ const NoteState = (props) => {
       body: JSON.stringify({title, description, tag})
     });
     const json =  response.json();
-
+    console.log(json);
     //logic 
     const note = {
       "_id": "63e5fb18d8ab74ca90e1e7ff1",
@@ -67,7 +67,7 @@ const NoteState = (props) => {
   // edit note
   const editNote = async(id, title, description, tag)=>{
     //TODO API call
-    const response = await fetch(`${host}/api/notes/udatenote/${id}`, {
+    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
       method: 'PUT', 
       headers: {
         'Content-Type': 'application/json',
@@ -76,14 +76,14 @@ const NoteState = (props) => {
       body: JSON.stringify({title, description, tag})
     });
     const json =  response.json(); 
-
+    console.log(json);
     //Logic to edit in client
     for(let i=0; i<notes.length; i++){
       const element = notes[i];
       if(element._id === id){
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        notes[i].title = title;
+        notes[i].description = description;
+        notes[i].tag = tag;
       }
     }
   } 

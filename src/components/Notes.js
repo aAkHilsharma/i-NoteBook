@@ -4,20 +4,24 @@ import Noteitem from "./Noteitem";
 
 const Notes = () => {
     const context = useContext(noteContext);
-    const {getNotes} = context;
-    const {notes, setNotes} = context; 
+    const {getNotes, editNote} = context;
+    const {notes} = context; 
+
     useEffect(() => {
         getNotes();
+        // eslint-disable-next-line
     }, []) 
+    const [note, setNote] = useState({id: "", etitle:"", edescription:"", etag:""});
+
     const updateNote = (currentNote)=>{
         ref.current.click();
-        setNote({etitle : currentNote.title, edescription : currentNote.description, etag: currentNote.tag});
+        setNote({id: currentNote._id, etitle : currentNote.title, edescription : currentNote.description, etag: currentNote.tag});
     }
     const ref = useRef(null);
     const refClose = useRef(null);
-    const [note, setNote] = useState({etitle:"", edescription:"", etag:""});
 
     const handleClick = (e)=>{
+        editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
     }
     const onchange = (e)=>{
