@@ -12,7 +12,7 @@ const Navbar = () => {
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul className="navbar-nav">
+                <ul className="navbar-nav  me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
                     <Link className={`nav-link ${location.pathname === "/"? "active" : ""}`} aria-current="page" to="/">Home</Link>
                     </li>
@@ -20,6 +20,10 @@ const Navbar = () => {
                     <Link className={`nav-link ${location.pathname === "/about"? "active" : ""}`} to="/about">About</Link>
                     </li>
                 </ul>
+                <form className="d-flex">
+                  <Link class="btn btn-primary" to="/login" role="button">Login</Link>
+                  <Link class="btn btn-primary mx-2" to="/signup" role="button">SignUp</Link>
+                </form>
                 </div>
             </div>
         </nav>
