@@ -2,11 +2,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../context/notes/NoteContext";
 import Noteitem from "./Noteitem";
 
-const Notes = () => {
+const Notes = (props) => {
     const context = useContext(noteContext);
     const {getNotes, editNote} = context;
     const {notes} = context; 
-
+    const {showAlert} = props;
     useEffect(() => {
         getNotes();
         // eslint-disable-next-line
@@ -23,6 +23,7 @@ const Notes = () => {
     const handleClick = (e)=>{
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        showAlert("Updated Successfully", "success");
     }
     const onchange = (e)=>{
         setNote({...note, [e.target.name]: e.target.value});
@@ -96,7 +97,7 @@ const Notes = () => {
                     {notes.length === 0 && "Click Add Note to add a note to display !"}
                 </div>
                 {notes.map((note)=>{
-                    return <Noteitem key={note._id} note={note} updateNote={updateNote}/>;
+                    return <Noteitem showAlert={showAlert} key={note._id} note={note} updateNote={updateNote}/>;
                 })}
         </div>
         </>
