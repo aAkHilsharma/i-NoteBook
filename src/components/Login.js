@@ -20,7 +20,7 @@ const Login = (props) => {
             localStorage.setItem('item', json.authtoken);
             navigate("/");
         } else{
-            props.showAlert("Login Details Invalid", "failure")
+            props.showAlert("Login Details Invalid", "warning")
         }
     }
     const onChange = (e)=>{
